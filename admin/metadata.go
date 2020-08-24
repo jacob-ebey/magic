@@ -21,8 +21,6 @@ func (magic *MagicAdmin) GetMetadataByIssuer(issuer string) (UserMetadata, error
 	fmt.Println(issuer)
 	result := UserMetadata{}
 
-	client := &http.Client{}
-
 	req, err := http.NewRequest("GET", magic.Options.Endpoint+"/v1/admin/auth/user/get", nil)
 	if err != nil {
 		return result, err
@@ -32,7 +30,7 @@ func (magic *MagicAdmin) GetMetadataByIssuer(issuer string) (UserMetadata, error
 	query.Add("issuer", issuer)
 	req.URL.RawQuery = query.Encode()
 
-	res, err := client.Do(req)
+	res, err := magic.Client.Do(req)
 	if err != nil || res.StatusCode != 200 {
 		return result, MagicMetadataFailedError
 	}

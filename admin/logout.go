@@ -10,10 +10,8 @@ import (
 var MagicLogoutFailedError = errors.New("logout failed")
 
 func (magic *MagicAdmin) LogoutByIssuer(issuer string) error {
-	client := &http.Client{}
-
 	body, err := json.Marshal(map[string]string{
-		issuer: issuer,
+		"issuer": issuer,
 	})
 	if err != nil {
 		return err
@@ -25,7 +23,7 @@ func (magic *MagicAdmin) LogoutByIssuer(issuer string) error {
 	}
 	req.Header.Add("X-Magic-Secret-key", magic.secretApiKey)
 
-	res, err := client.Do(req)
+	res, err := magic.Client.Do(req)
 	if err != nil || res.StatusCode != 200 {
 		return MagicLogoutFailedError
 	}
