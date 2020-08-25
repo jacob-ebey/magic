@@ -1,6 +1,10 @@
 # magic
 Magic Auth Admin API for Golang
 
+## Example
+
+Vercel: https://github.com/jacob-ebey/vercel-magic
+
 ## Usage
 
 ```go
